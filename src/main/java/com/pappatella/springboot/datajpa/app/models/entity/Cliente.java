@@ -26,7 +26,7 @@ public class Cliente implements Serializable {
 
 	@Column(name = "create_at")
 	@Temporal(TemporalType.DATE)
-	private Date creaAt;
+	private Date createAt;
 
 	private static final long serialVersionUID = 1L;
 
@@ -62,12 +62,12 @@ public class Cliente implements Serializable {
 		this.email = email;
 	}
 
-	public Date getCreaAt() {
-		return creaAt;
+	public Date getCreateAt() {
+		return createAt;
 	}
 
-	public void setCreaAt(Date creaAt) {
-		this.creaAt = creaAt;
+	public void setCreateAt(Date createAt) {
+		this.createAt = createAt;
 	}
 
 	public static long getSerialversionuid() {
