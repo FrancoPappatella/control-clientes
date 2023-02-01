@@ -13,13 +13,20 @@ import com.pappatella.springboot.datajpa.app.models.entity.Cliente;
 @Repository
 public class ClienteDaoImpl implements IClienteDao {
 
-	 @PersistenceContext
+	@PersistenceContext
 	private EntityManager em;
+
 	@SuppressWarnings("unchecked")
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	@Override
 	public List<Cliente> findAll() {
 		return em.createQuery("from Cliente").getResultList();
+	}
+
+	@Override
+	@Transactional
+	public void save(Cliente cliente) {
+		em.persist(cliente);
 	}
 
 }
