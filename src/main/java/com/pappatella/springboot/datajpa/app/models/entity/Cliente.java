@@ -31,7 +31,11 @@ public class Cliente implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-
+	@PrePersist
+	public void prePersist() {
+		this.createAt = new Date();
+	}
+	
 	public Long getId() {
 		return id;
 	}
