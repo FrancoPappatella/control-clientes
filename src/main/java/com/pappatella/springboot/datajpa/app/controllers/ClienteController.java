@@ -1,7 +1,5 @@
 package com.pappatella.springboot.datajpa.app.controllers;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,9 +22,9 @@ public class ClienteController {
 	}
 	
 	@GetMapping("/form")
-	public String crear(Map<String, Object> model) {
+	public String crear(Model model) {
 		Cliente cliente = new Cliente();
-		model.put("cliente", cliente);
+		model.addAttribute("cliente", cliente);
 		return "form";
 	}
 	

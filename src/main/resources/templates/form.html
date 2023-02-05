@@ -52,8 +52,15 @@
 					<input type="email" th:field="*{email}" class="form-control" />
 				</div>
 			</div>
-			<input type="submit" value="Crear cliente" class="btn btn-primary my-3" />
-			<input type="hidden" th:field="*{id}" />
+			<div class="form-group row">
+				<label class="col-form-label col-sm-2">Fecha</label>
+				<div class="col-sm-6">
+					<input type="text" th:field="*{createAt}" class="form-control" />
+				</div>
+			</div>
+			<input type="submit" value="Crear cliente"
+				class="btn btn-primary my-3" /> <input type="hidden"
+				th:field="*{id}" />
 		</form>
 	</div>
 	<script
