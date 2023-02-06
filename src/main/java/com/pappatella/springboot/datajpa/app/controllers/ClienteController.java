@@ -59,6 +59,15 @@ public class ClienteController {
 		model.addAttribute("titulo", "Editar cliente");
 		model.addAttribute("cliente", cliente);
 		return "form";
-
+	}
+	
+	@GetMapping("/eliminar/{id}")
+	public String eliminar(@PathVariable Long id) {
+		if(id > 0) {
+			clienteDao.delete(id);
+			
+		}
+		
+		return "redirect:/listar";
 	}
 }
