@@ -32,13 +32,13 @@
 	</nav>
 	<div class="container">
 		<div th:object="${cliente}" th:remove="tag">
-			<ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger my-2" >
+			<ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger my-2">
 				<p>Tiene los siguientes errores:</p>
 				<li th:each="err: ${#fields.errors('*')}" th:text="${err}"></li>
 			</ul>
 		</div>
-		<h1 class="text-primary border-bottom border-success">Crear
-			cliente</h1>
+		<h1 class="text-primary border-bottom border-success"
+			th:text="${titulo}"></h1>
 		<form th:action="@{/form}" th:object="${cliente}" method="post">
 			<div class="form-group row my-2">
 				<label class="col-form-label col-sm-2">Nombre</label>
@@ -76,9 +76,8 @@
 						class="form-text text-danger"></small>
 				</div>
 			</div>
-			<input type="submit" value="Crear cliente"
-				class="btn btn-primary my-3" /> <input type="hidden"
-				th:field="*{id}" />
+			<input type="submit" th:value="${titulo}"
+				class="btn btn-primary my-3" />
 		</form>
 	</div>
 	<script

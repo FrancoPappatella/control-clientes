@@ -7,12 +7,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.pappatella.springboot.datajpa.app.models.dao.IClienteDao;
 import com.pappatella.springboot.datajpa.app.models.entity.Cliente;
 
 @Controller
+@SessionAttributes("cliente")
 public class ClienteController {
 
 	@Autowired
@@ -27,17 +31,34 @@ public class ClienteController {
 	@GetMapping("/form")
 	public String crear(Model model) {
 		Cliente cliente = new Cliente();
+		model.addAttribute("titulo", "Crear cliente");
 		model.addAttribute("cliente", cliente);
 		return "form";
 	}
 
 	@PostMapping("/form")
-	public String guardar(@Valid Cliente cliente, BindingResult result) {
+	public String guardar(@Valid Cliente cliente, BindingResult result, Model model, SessionStatus status) {
 		if (result.hasErrors()) {
+			model.addAttribute("titulo", "Crear cliente");
 			return "form";
 		}
 
- 		clienteDao.save(cliente);
+		clienteDao.save(cliente);
+		status.setComplete();
 		return "redirect:listar";
+	}
+
+	@GetMapping("/form/{id}")
+	public String editar(@PathVariable Long id, Model model) {
+		Cliente cliente = null;
+		if (id > 0) {
+			cliente = clienteDao.findOne(id);
+		} else {
+			return "redirect:/listar";
+		}
+		model.addAttribute("titulo", "Editar cliente");
+		model.addAttribute("cliente", cliente);
+		return "form";
+
 	}
 }
