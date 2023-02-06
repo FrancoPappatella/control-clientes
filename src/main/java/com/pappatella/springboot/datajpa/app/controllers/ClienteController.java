@@ -14,17 +14,18 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.pappatella.springboot.datajpa.app.models.dao.IClienteDao;
 import com.pappatella.springboot.datajpa.app.models.entity.Cliente;
+import com.pappatella.springboot.datajpa.app.models.service.IClienteService;
 
 @Controller
 @SessionAttributes("cliente")
 public class ClienteController {
 
 	@Autowired
-	private IClienteDao clienteDao;
+	private IClienteService clienteService;
 
 	@GetMapping("/listar")
 	public String listar(Model model) {
-		model.addAttribute("clientes", clienteDao.findAll());
+		model.addAttribute("clientes", clienteService.findAll());
 		return "clientes";
 	}
 
@@ -43,7 +44,7 @@ public class ClienteController {
 			return "form";
 		}
 
-		clienteDao.save(cliente);
+		clienteService.save(cliente);
 		status.setComplete();
 		return "redirect:listar";
 	}
@@ -52,7 +53,7 @@ public class ClienteController {
 	public String editar(@PathVariable Long id, Model model) {
 		Cliente cliente = null;
 		if (id > 0) {
-			cliente = clienteDao.findOne(id);
+			cliente = clienteService.findOne(id);
 		} else {
 			return "redirect:/listar";
 		}
@@ -60,14 +61,13 @@ public class ClienteController {
 		model.addAttribute("cliente", cliente);
 		return "form";
 	}
-	
+
 	@GetMapping("/eliminar/{id}")
 	public String eliminar(@PathVariable Long id) {
-		if(id > 0) {
-			clienteDao.delete(id);
-			
+		if (id > 0) {
+			clienteService.delete(id);
 		}
-		
+
 		return "redirect:/listar";
 	}
 }
