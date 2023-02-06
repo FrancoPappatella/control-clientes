@@ -34,35 +34,39 @@
 		<h1 class="text-primary border-bottom border-success">Crear
 			cliente</h1>
 		<form th:action="@{/form}" th:object="${cliente}" method="post">
-			<div class="form-group row">
+			<div class="form-group row my-2">
 				<label class="col-form-label col-sm-2">Nombre</label>
 				<div class="col-sm-6">
-					<input type="text" th:field="*{nombre}" class="form-control" th:errorclass="'form-control border-danger'" /> <small
+					<input type="text" th:field="*{nombre}" class="form-control"
+						th:errorclass="'form-control border-danger'" /> <small
 						th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"
 						class="form-text text-danger"></small>
 				</div>
 			</div>
-			<div class="form-group row">
+			<div class="form-group row my-2">
 				<label class="col-form-label col-sm-2">Apellido</label>
 				<div class="col-sm-6">
-					<input type="text" th:field="*{apellido}" class="form-control" th:errorclass="'form-control border-danger'" />
-					<small th:if="${#fields.hasErrors('apellido')}"
-						th:errors="*{apellido}" class="form-text text-danger"></small>
+					<input type="text" th:field="*{apellido}" class="form-control"
+						th:errorclass="'form-control border-danger'" /> <small
+						th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"
+						class="form-text text-danger"></small>
 				</div>
 			</div>
-			<div class="form-group row">
+			<div class="form-group row my-2">
 				<label class="col-form-label col-sm-2">Email</label>
 				<div class="col-sm-6">
-					<input type="text" th:field="*{email}" class="form-control" th:errorclass="'form-control border-danger'" /> <small
+					<input type="text" th:field="*{email}" class="form-control"
+						th:errorclass="'form-control border-danger'" /> <small
 						th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
 						class="form-text text-danger"></small>
 				</div>
 			</div>
-			<div class="form-group row">
+			<div class="form-group row my-2">
 				<label class="col-form-label col-sm-2">Fecha</label>
 				<div class="col-sm-6">
-					<input type="text" th:field="*{createAt}" class="form-control" th:errorclass="'form-control border-danger'" />
-					<small th:if="${#fields.hasErrors('createAt')}" th:errors="*{createAt}"
+					<input type="text" th:field="*{createAt}" class="form-control"
+						th:errorclass="'form-control border-danger'" /> <small
+						th:if="${#fields.hasErrors('createAt')}" th:errors="*{createAt}"
 						class="form-text text-danger"></small>
 				</div>
 			</div>
