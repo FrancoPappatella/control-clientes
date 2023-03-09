@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.UUID;
 
 import javax.validation.Valid;
 
@@ -34,7 +35,22 @@ public class ClienteController {
 
 	@Autowired
 	private IClienteService clienteService;
-
+	
+	@GetMapping("/ver/{id}")
+	public String ver(@PathVariable(value="id") Long id, Model model, RedirectAttributes flash) {
+		
+		Cliente cliente = clienteService.findOne(id);
+		if(cliente==null) {
+			flash.addFlashAttribute("error", "El cliente no existe en la base de datos");
+			return "redirect:/listar";
+		}
+		
+		model.addAttribute("cliente", cliente);
+		return "ver";
+		
+	}
+	
+	
 	@GetMapping("/listar")
 	public String listar(@RequestParam (name="page", defaultValue="0")int page, Model model) {
 		Pageable pageRequest = PageRequest.of(page, 4);
@@ -63,14 +79,13 @@ public class ClienteController {
 			return "form";
 		}
 		if(!foto.isEmpty()) {
-			Path directorioRecursos = Paths.get("src//main//resources//static/upload");
-			String rootPath = directorioRecursos.toFile().getAbsolutePath();
+			String uniqueFilename = UUID.randomUUID().toString() + "_" + foto.getOriginalFilename();
+			Path rootPath = Paths.get("uploads").resolve(uniqueFilename);
+			Path rootAbsolutPath = rootPath.toAbsolutePath();
 			try {
-				byte[] bytes = foto.getBytes();
-				Path rutaCompleta = Paths.get(rootPath + "//" + foto.getOriginalFilename());
-				Files.write(rutaCompleta, bytes);
+				Files.copy(foto.getInputStream(), rootAbsolutPath);
 				flash.addFlashAttribute("info", "Subiste correctamente " + foto.getOriginalFilename());
-				cliente.setFoto(foto.getOriginalFilename());
+				cliente.setFoto(uniqueFilename);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
