@@ -1,7 +1,9 @@
 package com.pappatella.springboot.datajpa.app.models.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -12,21 +14,30 @@ public class Factura implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String descripcion;
-	
+
 	private String observacion;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "create_at")
 	private Date createAt;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Cliente cliente;
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "factura_id")
+	private List<ItemFactura> items;
 
 	@PrePersist
 	public void prePersist() {
 		this.createAt = new Date();
 	}
-	@ManyToOne(fetch=FetchType.LAZY)
-	private Cliente cliente;
+
+	public Factura() {
+		this.items = new ArrayList<>();
+	}
 
 	public Long getId() {
 		return id;
@@ -66,6 +77,27 @@ public class Factura implements Serializable {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public List<ItemFactura> getItems() {
+		return items;
+	}
+
+	public void setItems(List<ItemFactura> items) {
+		this.items = items;
+	}
+
+	public void addItemFactura(ItemFactura item) {
+		this.items.add(item);
+	}
+
+	public Double getTotal() {
+		Double total = 0.0;
+		int size = this.items.size();
+		for (int i = 0; i < size; i++) {
+			total += items.get(i).calcularImporte();
+		}
+		return total;
 	}
 
 	private static final long serialVersionUID = 1L;
