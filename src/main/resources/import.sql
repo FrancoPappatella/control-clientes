@@ -25,6 +25,23 @@ INSERT INTO clientes (nombre, apellido, email, create_at, foto) VALUES ('Franco'
 INSERT INTO clientes (nombre, apellido, email, create_at, foto) VALUES ('Juan', 'Perez', 'juanperez@gmail.com', '2022-12-7','');
 /* */
 
+/* */
+INSERT INTO productos (nombre, precio, create_at) VALUES ('Panasonic Pantalla LCD', 259990, NOW());
+INSERT INTO productos (nombre, precio, create_at) VALUES ('CPU Intel i5 10400F', 200000, NOW());
+INSERT INTO productos (nombre, precio, create_at) VALUES ('Apple Ipod Suffle', 828200, NOW());
+INSERT INTO productos (nombre, precio, create_at) VALUES ('Notebook Sony Z110', 390000, NOW());
+INSERT INTO productos (nombre, precio, create_at) VALUES ('Impresora HP F2280', 69280, NOW());
+INSERT INTO productos (nombre, precio, create_at) VALUES ('Celular Samsung S23 Ultra', 153110, NOW());
+/* */
+
+/* */
+INSERT INTO facturas (descripcion, observacion, cliente_id, create_at) VALUES ('Factura de artículos de oficina', '', 1, NOW());
+
+INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES (3, 1, 6);
+INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES (4, 1, 1);
+INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES (3, 1, 6);
+INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES (1, 1, 5);
+/* */
 
 
 
