@@ -9,13 +9,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pappatella.springboot.datajpa.app.models.dao.IClienteDao;
+import com.pappatella.springboot.datajpa.app.models.dao.IProductoDao;
 import com.pappatella.springboot.datajpa.app.models.entity.Cliente;
+import com.pappatella.springboot.datajpa.app.models.entity.Producto;
 
 @Service
 public class ClienteServiceImpl implements IClienteService {
 
 	@Autowired
-	IClienteDao clienteDao;
+	private IClienteDao clienteDao;
+	@Autowired
+	IProductoDao productoDao;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -39,6 +43,12 @@ public class ClienteServiceImpl implements IClienteService {
 	@Transactional
 	public void delete(Long id) {
 		clienteDao.deleteById(id);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Producto> findByNombre(String term) {
+		return productoDao.findByNombreLikeIgnoreCase("%" + term + "%");
 	}
 
 

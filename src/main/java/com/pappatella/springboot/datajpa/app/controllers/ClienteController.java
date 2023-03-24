@@ -1,6 +1,7 @@
 package com.pappatella.springboot.datajpa.app.controllers;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -15,12 +16,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.pappatella.springboot.datajpa.app.models.entity.Cliente;
+import com.pappatella.springboot.datajpa.app.models.entity.Producto;
 import com.pappatella.springboot.datajpa.app.models.service.IClienteService;
 import com.pappatella.springboot.datajpa.app.models.service.IUploadFileService;
 import com.pappatella.springboot.datajpa.app.paginator.PageRender;
@@ -129,5 +132,10 @@ public class ClienteController {
 		}
 
 		return "redirect:/listar";
+	}
+	
+	@GetMapping(value="/cargar-productos/{term}", produces = {"application/json"})
+	public @ResponseBody List<Producto> cargarProductos(@PathVariable String term){
+		return clienteService.findByNombre(term);
 	}
 }
